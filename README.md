@@ -1,0 +1,1 @@
+BotFather → token → config.py → pip install → python bot.py
