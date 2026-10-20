@@ -28,11 +28,11 @@ bot = telebot.TeleBot(token=TOKEN)
 #
 # bot.infinity_polling()
 
-royxatlar = {}                         # chat_id → ro'yxat (har kimga o'ziniki)
+royxatlar = {}
 
 
 def royxat(message):
-    return royxatlar.setdefault(message.chat.id, [])   # yo'q bo'lsa bo'sh ro'yxat yaratadi
+    return royxatlar.setdefault(message.chat.id, [])
 
 
 @bot.message_handler(commands=['start', 'help'])
@@ -42,13 +42,13 @@ def start(message):
 
 @bot.message_handler(commands=['add'])
 def add(message):
-    matn = message.text.replace("/add", "", 1).strip()     # "/add Dars qilish" → "Dars qilish"
+    matn = message.text.replace("/add", "", 1).strip()    "
     if matn == "":
         bot.reply_to(message, "Format: /add Dars qilish")
         return
     r = royxat(message)
     r.append("[ ] " + matn)
-    bot.reply_to(message, f"✅ #{len(r) - 1} qo'shildi: {matn}")   # oxirgi element raqami
+    bot.reply_to(message, f"✅ #{len(r) - 1} qo'shildi: {matn}")
 
 
 @bot.message_handler(commands=['list'])
@@ -57,18 +57,18 @@ def royxatni_korsat(message):
     if len(r) == 0:
         bot.reply_to(message, "Ro'yxat bo'sh. /add bilan qo'shing")
         return
-    qatorlar = [f"#{i} {v}" for i, v in enumerate(r)]   # "#0 [ ] Dars qilish"
+    qatorlar = [f"#{i} {v}" for i, v in enumerate(r)]
     bot.reply_to(message, "\n".join(qatorlar))
 
 
 @bot.message_handler(commands=['done', 'del'])
 def done_del(message):
     try:
-        buyruq, raqam = message.text.split()       # "/done 0"
+        buyruq, raqam = message.text.split()
         idx = int(raqam)
         r = royxat(message)
         if buyruq == "/done":
-            r[idx] = r[idx].replace("[ ]", "[x]", 1)       # "[ ] Dars" → "[x] Dars"
+            r[idx] = r[idx].replace("[ ]", "[x]", 1)
             bot.reply_to(message, "✔️ Bajarildi")
         else:
             del r[idx]
