@@ -9,3 +9,7 @@ wheels/
 # Virtual environments
 .venv
 config.py
+bot.py
+to_do.py
+bot2
+main.py
